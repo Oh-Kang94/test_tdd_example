@@ -97,3 +97,49 @@ void main() {
   });
 }
 ```
+
+### 4. 유저 인터렉션 테스트
+
+테스트 환경에서는 유저와의 인터렉션을 시뮬레이팅 해야함
+테스트 환경에서는 상태가 변경되어도 자동으로 화면을 다시 그리지 않기 때문에
+pump() : **그냥 나타는 것들** 또는 pumpAndSettle() : **에니메이팅이 들어가면서 생겨나는 것들**을 사용하여 다시 그리기를 시뮬레이팅을 해야함
+(setState)
+
+#### 1. 기본 테스트
+
+```dart
+testWidgets('Add and remove a todo', (tester)async {
+  // wait build the widget
+  await tester.pumpWidget(const TodoList());
+  // Simulate Enter 'hi' into the TextField
+  await tester.enterText(find.byType(TextField), 'hi');
+});
+```
+
+tap() 이후에는 pump() 혹은 pumpAndSettle() 을 실행해야 반영됨
+
+#### 2. 상태가 변하는 테스트
+
+```dart
+testWidget('Add and remove a todo', (tester)async {
+  // Tap the add button
+  await tester.tap(find.byType(FloatingActionButton));
+  // Rebuilt the widget after State Changed
+  await tester.pump();
+  // Expect to find the item on screen
+  expect(find.text('hi'), findsOneWidget);
+})
+```
+
+#### 3. 에니메이션까지 들어가서 상태가 변하는 테스트
+
+```dart
+testWidget('Add and remove a todo', (tester)async {
+  // Tap the add button
+  await tester.drag(find.byType(Dismissible), const Offset(500, 0));
+  // Rebuilt the widget after State Changed
+  await tester.pumpAndSettle();
+  // Expect to find the item on screen
+  expect(find.text('hi'), findsOneWidget);
+})
+```

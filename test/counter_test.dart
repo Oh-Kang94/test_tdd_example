@@ -6,6 +6,7 @@ import 'package:test_tdd_example_inflearn/1_counter/counter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
 import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
+import 'package:test_tdd_example_inflearn/7_tap_and_drag_enter_text/tap_and_drag_enter_text_screen.dart';
 import 'package:test_tdd_example_inflearn/datasource/remote_datasource.dart';
 import 'package:test_tdd_example_inflearn/main.dart';
 import 'package:test_tdd_example_inflearn/model/album.dart';
@@ -186,6 +187,48 @@ void main() {
 
       await tester.scrollUntilVisible(itemFinder, 100, scrollable: listFinder);
       expect(itemFinder, findsOneWidget);
+    });
+  });
+
+  group('UserInteraction Test', () {
+    // setUp(() async {
+    //   await tester.pumpWidget(const MaterialApp(
+    //     home: TapAndDragEnterTextScreen(),
+    //   ));
+    // });
+    testWidgets(
+      'Text입력, drag',
+      (tester) async {
+        await tester.pumpWidget(const MaterialApp(
+          home: TapAndDragEnterTextScreen(),
+        ));
+        // HI 입력
+        await tester.enterText(find.byType(TextField), 'Hi');
+        // 더하기 입력
+        await tester.tap(find.byType(FloatingActionButton));
+        // 상태 변경을 해야한다.
+        await tester.pump();
+        expect(find.text('Hi'), findsOneWidget);
+      },
+    );
+
+    testWidgets('Dismissible Test', (tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: TapAndDragEnterTextScreen(),
+      ));
+      // HI 입력
+      await tester.enterText(find.byType(TextField), 'Hi');
+      // 더하기 입력
+      await tester.tap(find.byType(FloatingActionButton));
+      // 상태 변경을 해야한다.
+      await tester.pump();
+      // drag를 한다.
+      await tester.drag(find.byType(Dismissible), const Offset(500, 0));
+
+      // 상태 변경을 해야한다. 단, Animation이 발생되므로, pump가 아닌 pumpAndSettle을 사용해야한다. 
+      await tester.pumpAndSettle();
+
+      expect(find.text('Hi'), findsNothing);
     });
   });
 }

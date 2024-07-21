@@ -4,6 +4,7 @@ import 'package:test_tdd_example_inflearn/1_counter/counter_screen.dart';
 import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
 import 'package:test_tdd_example_inflearn/4_find_widget/find_widget_screen.dart';
 import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
+import 'package:test_tdd_example_inflearn/7_tap_and_drag_enter_text/tap_and_drag_enter_text_screen.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
@@ -51,6 +52,13 @@ class RootScreen extends StatelessWidget {
                 HandleScrollingScreen.routesName,
               ),
               child: const Text("find handle Scrolling test screen"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(
+                context,
+                TapAndDragEnterTextScreen.routesName,
+              ),
+              child: const Text("find tapAndDragEnterText screen"),
             ),
           ],
         ),

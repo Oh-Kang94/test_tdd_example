@@ -4,6 +4,7 @@ import 'package:test_tdd_example_inflearn/1_counter/counter_screen.dart';
 import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
 import 'package:test_tdd_example_inflearn/4_find_widget/find_widget_screen.dart';
 import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
+import 'package:test_tdd_example_inflearn/7_tap_and_drag_enter_text/tap_and_drag_enter_text_screen.dart';
 import 'package:test_tdd_example_inflearn/root_screen.dart';
 
 void main() {
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         HandleScrollingScreen.routesName: (context) => HandleScrollingScreen(
               items: List.generate(10000, (i) => "Item $i"),
             ),
+        TapAndDragEnterTextScreen.routesName : (context) => const TapAndDragEnterTextScreen()
       },
     );
   }
