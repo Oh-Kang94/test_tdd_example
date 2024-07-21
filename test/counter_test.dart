@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test_tdd_example_inflearn/1_counter/counter.dart';
 import 'package:mockito/annotations.dart';
+import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
 import 'package:test_tdd_example_inflearn/datasource/remote_datasource.dart';
 import 'package:test_tdd_example_inflearn/model/album.dart';
 import 'package:test_tdd_example_inflearn/repository/album_repository.dart';
@@ -117,10 +119,52 @@ void main() {
     test(
       'Error 404',
       () async {
-        when(mockAlbumRepository.fetchAlbum()).thenThrow(Exception('Failed to load Album'));
+        when(mockAlbumRepository.fetchAlbum())
+            .thenThrow(Exception('Failed to load Album'));
 
-      expect(() async => await mockAlbumRepository.fetchAlbum(), throwsException);
+        expect(() async => await mockAlbumRepository.fetchAlbum(),
+            throwsException);
       },
     );
   });
+
+  group(
+    'testWidget',
+    () {
+      testWidgets(
+        'title, message가 잘 표시 되어야한다.',
+        (tester) async {
+          //  title : t , message : M
+          await tester.pumpWidget(
+            const MaterialApp(
+              home: WidgetTestScreen(title: 'T', message: 'm'),
+            ),
+          );
+          // T 글자가 있는 객체
+          final titleFinder = find.text('T');
+          // M 글자가 있는 객체
+          final msgFinder = find.text('m');
+
+          // 각각 1개씩 있는지 검사
+          expect(titleFinder, findsOneWidget);
+          expect(msgFinder, findsOneWidget);
+        },
+      );
+      testWidgets(
+        'Counter increments smoke test',
+        (WidgetTester tester) async {
+          const testKey = Key('K');
+          await tester.pumpWidget(
+            MaterialApp(
+              home: Scaffold(
+                key: testKey,
+                body: Text('H'),
+              ),
+            ),
+          );
+          expect(find.byKey(testKey), findsOneWidget);
+        },
+      );
+    },
+  );
 }

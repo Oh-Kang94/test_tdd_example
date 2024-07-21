@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_tdd_example_inflearn/2_album/album_screen.dart';
 import 'package:test_tdd_example_inflearn/1_counter/counter_screen.dart';
+import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
+import 'package:test_tdd_example_inflearn/4_find_widget/find_widget_screen.dart';
 import 'package:test_tdd_example_inflearn/root_screen.dart';
 
 void main() {
@@ -27,6 +29,11 @@ class MyApp extends StatelessWidget {
         RootScreen.routesName: (context) => const RootScreen(),
         CounterScreen.routesName: (context) => const CounterScreen(),
         AlbumScreen.routesName: (context) => const AlbumScreen(),
+        WidgetTestScreen.routesName: (context) => const WidgetTestScreen(
+              title: 'title',
+              message: 'message',
+            ),
+        FindWidgetScreen.routesName : (context) => const FindWidgetScreen(title: 'find Widget'),
       },
     );
   }
