@@ -5,7 +5,9 @@ import 'package:mockito/mockito.dart';
 import 'package:test_tdd_example_inflearn/1_counter/counter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
+import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
 import 'package:test_tdd_example_inflearn/datasource/remote_datasource.dart';
+import 'package:test_tdd_example_inflearn/main.dart';
 import 'package:test_tdd_example_inflearn/model/album.dart';
 import 'package:test_tdd_example_inflearn/repository/album_repository.dart';
 
@@ -155,7 +157,7 @@ void main() {
         (WidgetTester tester) async {
           const testKey = Key('K');
           await tester.pumpWidget(
-            MaterialApp(
+            const MaterialApp(
               home: Scaffold(
                 key: testKey,
                 body: Text('H'),
@@ -167,4 +169,23 @@ void main() {
       );
     },
   );
+
+  group('list test', () {
+    testWidgets('list test', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HandleScrollingScreen(
+            items: List.generate(10000, (i) => "Item $i"),
+          ),
+        ),
+      );
+      // Scroll 가능한 위젯을 찾는다.
+      final listFinder = find.byType(Scrollable);
+      // 50번째 아이템을 찾는 객체 생성
+      final itemFinder = find.byKey(const ValueKey("item_50_text"));
+
+      await tester.scrollUntilVisible(itemFinder, 100, scrollable: listFinder);
+      expect(itemFinder, findsOneWidget);
+    });
+  });
 }

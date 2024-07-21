@@ -3,6 +3,7 @@ import 'package:test_tdd_example_inflearn/2_album/album_screen.dart';
 import 'package:test_tdd_example_inflearn/1_counter/counter_screen.dart';
 import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart';
 import 'package:test_tdd_example_inflearn/4_find_widget/find_widget_screen.dart';
+import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
 import 'package:test_tdd_example_inflearn/root_screen.dart';
 
 void main() {
@@ -33,7 +34,11 @@ class MyApp extends StatelessWidget {
               title: 'title',
               message: 'message',
             ),
-        FindWidgetScreen.routesName : (context) => const FindWidgetScreen(title: 'find Widget'),
+        FindWidgetScreen.routesName: (context) =>
+            const FindWidgetScreen(title: 'find Widget'),
+        HandleScrollingScreen.routesName: (context) => HandleScrollingScreen(
+              items: List.generate(10000, (i) => "Item $i"),
+            ),
       },
     );
   }

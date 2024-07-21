@@ -69,3 +69,31 @@ testWidgets('find a specific instance',(tester) async {
     expect(find.byWidget(childWidget), findsOneWidget);
 });
 ```
+
+### 3. 스크롤 테스트
+
+1. scrollUntilVisible() : 대상이 보일 때까지 스크롤해서 찾기 때문에 편리함
+
+```dart
+void main() {
+  testWidgets('finds a deep item in a long list', (tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MyApp(
+      items: List<String>.generate(10000, (i) => 'Item $i'),
+    ));
+
+    final listFinder = find.byType(Scrollable);
+    final itemFinder = find.byKey(const ValueKey('item_50_text'));
+
+    // Scroll until the item to be found appears.ㅋ
+    await tester.scrollUntilVisible(
+      itemFinder,
+      500.0,
+      scrollable: listFinder,
+    );
+
+    // Verify that the item contains the correct text.
+    expect(itemFinder, findsOneWidget);
+  });
+}
+```
