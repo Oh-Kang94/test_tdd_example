@@ -143,3 +143,20 @@ testWidget('Add and remove a todo', (tester)async {
   expect(find.text('hi'), findsOneWidget);
 })
 ```
+
+### 5. 통합테스트
+
+`IntegrationTestWidgetsFlutterBinding.ensureInitialized();`이 무조건 선행 되어야 한다.
+
+```dart
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  group('end-to-end test', () {
+    testWidgets('Tap~', (tester) async {
+      await tester.pumpWidget(const MyApp());
+    });
+  });
+}
+
+```

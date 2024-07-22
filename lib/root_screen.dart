@@ -19,6 +19,7 @@ class RootScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(
+              key: const Key('ClickCounterScreen'),
               onPressed: () => Navigator.pushNamed(
                 context,
                 CounterScreen.routesName,

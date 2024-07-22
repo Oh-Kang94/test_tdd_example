@@ -3,7 +3,7 @@ import 'package:test_tdd_example_inflearn/1_counter/counter.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
-  static String get routesName => '/counter'; 
+  static String get routesName => '/counter';
 
   @override
   State<CounterScreen> createState() => _CounterScreenState();
@@ -44,7 +44,7 @@ class _CounterScreenState extends State<CounterScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _clear(),
-        tooltip: 'Increment',
+        tooltip: 'refresh',
         child: const Icon(Icons.refresh),
       ),
     );
