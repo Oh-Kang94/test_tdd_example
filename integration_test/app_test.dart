@@ -5,7 +5,8 @@ import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_sc
 import 'package:test_tdd_example_inflearn/main.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final IntegrationTestWidgetsFlutterBinding binding =
+      IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('end-to-end', () {
     testWidgets('FAB 탭하면 카운터가 초기화되어야 함', (tester) async {
@@ -74,11 +75,17 @@ void main() {
     final listFinder = find.byType(Scrollable);
     final itemFinder = find.text('item : 50');
 
-    // 스크롤하여 item_50_text를 화면에 보이게 합니다.
-    await widgetTester.scrollUntilVisible(
-      itemFinder,
-      500.0,
-      scrollable: listFinder,
+    // Add Performance Record
+    await binding.traceAction(
+      () async {
+        // 스크롤하여 item_50_text를 화면에 보이게 합니다.
+        await widgetTester.scrollUntilVisible(
+          itemFinder,
+          500.0,
+          scrollable: listFinder,
+        );
+      },
+      reportKey: 'scrolling_timeline', // 여러 개 테스트 대비로 지정하는 것이 좋음
     );
 
     // item_50_text가 화면에 보이는지 확인합니다.
