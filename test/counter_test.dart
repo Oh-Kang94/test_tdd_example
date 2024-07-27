@@ -8,7 +8,6 @@ import 'package:test_tdd_example_inflearn/3_widget_test/widget_test_screen.dart'
 import 'package:test_tdd_example_inflearn/5_handle_scrolling/handle_scrolling_screen.dart';
 import 'package:test_tdd_example_inflearn/7_tap_and_drag_enter_text/tap_and_drag_enter_text_screen.dart';
 import 'package:test_tdd_example_inflearn/datasource/remote_datasource.dart';
-import 'package:test_tdd_example_inflearn/main.dart';
 import 'package:test_tdd_example_inflearn/model/album.dart';
 import 'package:test_tdd_example_inflearn/repository/album_repository.dart';
 
@@ -225,7 +224,7 @@ void main() {
       // drag를 한다.
       await tester.drag(find.byType(Dismissible), const Offset(500, 0));
 
-      // 상태 변경을 해야한다. 단, Animation이 발생되므로, pump가 아닌 pumpAndSettle을 사용해야한다. 
+      // 상태 변경을 해야한다. 단, Animation이 발생되므로, pump가 아닌 pumpAndSettle을 사용해야한다.
       await tester.pumpAndSettle();
 
       expect(find.text('Hi'), findsNothing);

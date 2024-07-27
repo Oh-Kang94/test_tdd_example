@@ -48,6 +48,7 @@ class RootScreen extends StatelessWidget {
               child: const Text("find widget test screen"),
             ),
             ElevatedButton(
+              key: const Key('Handle Scroll Test'),
               onPressed: () => Navigator.pushNamed(
                 context,
                 HandleScrollingScreen.routesName,
