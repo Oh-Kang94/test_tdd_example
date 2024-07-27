@@ -1,4 +1,4 @@
-# test_tdd_example_inflearn
+# test_tdd_example
 
 https://www.inflearn.com/course/flutter-테스트-기초/dashboard
 의 기반으로 TDD 연습 하기
